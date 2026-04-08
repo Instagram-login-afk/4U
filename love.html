@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="hi.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Georgia:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(ellipse at top left, #2d1e1b 0%, #111 100%);
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: auto;
+        }
+        #hearts-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-heart {
+            position: absolute;
+            bottom: -40px;
+            animation: float-heart linear forwards;
+            will-change: transform, opacity;
+        }
+        @keyframes float-heart {
+            to {
+                transform: translateY(-50vh) scale(1.2) rotate(12deg);
+                opacity: 0;
+            }
+        }
+        .content-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center; /* Center horizontally */
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 60px;
+            z-index: 2;
+            position: relative;
+            width: 100%;
+            margin-left: auto;  /* Added */
+            margin-right: auto; /* Added */
+        }
+        .rect-note, .square-note {
+            background: rgba(255,251,231,0.97);
+            box-shadow: 0 6px 32px #b85c3866;
+            border: 4px solid #b85c38;
+            font-family: Georgia, serif;
+            color: #333;
+            font-size: 1.15em;
+            line-height: 1.7;
+            position: relative;
+            padding: 38px 32px 32px 32px;
+            margin-bottom: 0;
+        }
+        .rect-note {
+            border-radius: 24px;
+            max-width: 420px;
+            min-width: 320px;
+        }
+        .square-note {
+            border-radius: 18px;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .rect-note h2, .square-note h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #b85c38;
+            font-size: 2em;
+            margin: 0 0 18px 0;
+            text-align: center;
+        }
+        .rect-note .author {
+            text-align: right;
+            color: #b85c38;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2em;
+            margin-top: 24px;
+        }
+        .dream-box {
+            background: rgba(255,251,231,0.97);
+            border-radius: 18px;
+            box-shadow: 0 4px 18px #b85c3866;
+            border: 3px solid #b85c38;
+            padding: 28px 24px;
+            font-family: Georgia, serif;
+            color: #333;
+            font-size: 1.08em;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-top: 18px;
+            min-width: 320px;
+            max-width: 420px;
+        }
+        .dream-box img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px #b85c3866;
+            border: 2px solid #fffbe7;
+        }
+        .memories-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            justify-content: center;
+            margin: 60px 0 0 0;
+            z-index: 2;
+            position: relative;
+        }
+        .memories-flex img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #b85c3866;
+        }
+        .bottom-btn-bar {
+            width:100%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            position:fixed;
+            bottom:28px;
+            left:0;
+            z-index:100;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .love-btn {
+            background:#b85c38;
+            color:#fffbe7;
+            font-family:'Great Vibes',cursive;
+            font-size:1.6em;
+            padding:12px 38px;
+            border:none;
+            border-radius:28px;
+            box-shadow:0 2px 12px #b85c3866;
+            cursor:pointer;
+            transition:background 0.2s;
+        }
+        .more-btn, .less-btn {
+            background: #fffbe7;
+            color: #b85c38;
+            border: none;
+            border-radius: 18px;
+            font-size: 1em;
+            font-family: 'Great Vibes', cursive;
+            padding: 6px 18px;
+            margin: 18px auto 0 auto;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #b85c3866;
+            display: block;
+        }
+        .less-btn {
+            background: #b85c38;
+            color: #fffbe7;
+            margin-top: 8px;
+        }
+        @media (max-width: 1300px) {
+            .content-row { flex-direction: column; width: 100%; }
+            .memories-flex { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="hearts-bg"></div>
+    <div class="content-row">
+        <div class="rect-note">
+            <h2>Just For You</h2>
+            <span id="side-note-short">
+                I hope this page makes you smile.<br>
+                You mean the world to me.<br>
+                Every memory, every dream, every word<br>
+                Is here because of you.<br>
+                <span style="color:#b85c38;font-size:1.5em;">❤️</span>
+                <button class="more-btn" onclick="toggleMore('side-note')">...more</button>
+            </span>
+            <span id="side-note-more" style="display:none;">
+                You are the reason for every smile and every dream on this page.<br>
+                Thank you for being you.
+                <button class="less-btn" onclick="toggleLess('side-note')">less</button>
+            </span>
+        </div>
+        <div class="square-note">
+            <h2>My Love</h2>
+            <img src="1000002640.jpg" alt="Memory" style="width:80px; height:80px; border-radius:18px; margin-bottom:16px;">
+            <span id="circle-note-short">
+                For the Girl I Met Right Before Italy
+                <button class="more-btn" onclick="toggleMore('circle-note')">...more</button>
+            </span>
+            <span id="circle-note-more" style="display:none;">
+                You changed my world in ways I never imagined. Every day with you is a new adventure.
+                <button class="less-btn" onclick="toggleLess('circle-note')">less</button>
+            </span>
+        </div>
+        <div class="rect-note">
+            <h2>Our Story</h2>
+            <img src="1000003739.jpg" alt="Italy" style="width:100px; height:100px; border-radius:18px; margin-bottom:12px;">
+            <span id="our-story-short">
+                Among ancient streets and golden light,<br>
+                With laughter echoing through the night,<br>
+                I met you there, a fleeting chance,<br>
+                In Italy’s arms, a sweet romance.<br>
+                <button class="more-btn" onclick="toggleMore('our-story')">...more</button>
+            </span>
+            <span id="our-story-more" style="display:none;">
+                The world was wide, yet time stood still,<br>
+                As we wandered past each sunlit hill.<br>
+                Your smile, a memory I can’t forget,<br>
+                My heart recalls the day we met.<br><br>
+                Though miles may stretch and days may fly,<br>
+                I’ll hold our story, you and I.<br>
+                For in that place, beneath the sky,<br>
+                I found a spark that will not die.
+                <div class="author">— From the guy with the basketball team</div>
+                <button class="less-btn" onclick="toggleLess('our-story')">less</button>
+            </span>
+        </div>
+        <div class="rect-note dream-box">
+            <img src="cinderella-castle-fireworks-mark-andrew-thomas.jpg" alt="Cinderella Castle">
+            <div>
+                <b style="color:#b85c38;font-family:'Great Vibes',cursive;font-size:1.2em;">Our Next Dream</b><br>
+                <span id="dream-short">
+                    One day, you and I will walk through Disney World, hand in hand,<br>
+                    Laughing under fireworks, in front of the castle so grand.<br>
+                    <button class="more-btn" onclick="toggleMore('dream')">...more</button>
+                </span>
+                <span id="dream-more" style="display:none;">
+                    I can't wait for that day, to make memories with you.<br>
+                    Magic all around us, dreams coming true.
+                    <button class="less-btn" onclick="toggleLess('dream')">less</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="rect-note" style="border-radius:24px;">
+            <h2>When You Entered My World</h2>
+            <img src="1000002680.jpg" alt="Bus Memory" style="width:90px; height:90px; border-radius:18px; margin-bottom:12px;">
+            <span id="entered-short">
+                The moment you entered the bus, I knew you weren’t like the rest,<br>
+                Something in your smile told me, I’d met someone blessed.<br>
+                <button class="more-btn" onclick="toggleMore('entered')">...more</button>
+            </span>
+            <span id="entered-more" style="display:none;">
+                The first plane we flew, you held my hand, I felt complete,<br>
+                In that crowded airport, my heart skipped a beat.<br><br>
+                The first time we talked, I knew I wanted you near,<br>
+                You listened to my worries, you calmed every fear.<br>
+                You know all my problems, yet your love never bends,<br>
+                And that means the world, because I’m far from perfect.<br><br>
+                You say we’re opposites, but I think that’s our fate,<br>
+                They say opposites attract, and I know they’re right.<br>
+                For every flaw I carry, you see something true,<br>
+                I’m grateful every day for the magic of you.
+                <button class="less-btn" onclick="toggleLess('entered')">less</button>
+            </span>
+        </div>
+        <div class="rect-note" style="border-radius:24px;">
+            <h2>When I Think of You</h2>
+            <img src="1000003858.jpg" alt="Text Memory" style="width:90px; height:90px; border-radius:18px; margin-bottom:12px;">
+            <span id="think-short">
+                When you say, “don’t talk to me,” my mind begins to race,<br>
+                I worry deep inside, I miss your sweet embrace.<br>
+                <button class="more-btn" onclick="toggleMore('think')">...more</button>
+            </span>
+            <center><span id="think-more" style="display:none;">
+                Sometimes you text, “do you love me?” and I hope you always know,<br>
+                My heart is yours forever, more than words could show.<br><br>
+                When you say you’re sad, I wish I could take the pain away,<br>
+                I’d trade a thousand sleepless nights just to brighten up your day.<br>
+                You think I work so hard, but you don’t even see,<br>
+                I’m working two more jobs, just to build our destiny.<br><br>
+                I love you more than ever, and I always, always will,<br>
+                Through every storm and struggle, I’ll be loving you still.<br>
+                No matter what tomorrow brings, or how far we may roam,<br>
+                My heart will keep repeating: with you, I am home.
+                <button class="less-btn" onclick="toggleLess('think')">less</button>
+            </span></center>
+        </div>
+    </div>
+    <div class="memories-flex">
+        <img src="a.jpg">
+        <img src="b.jpg">
+        <img src="c.jpg">
+        <img src="d.jpg">
+        <img src="e.jpg">
+        <img src="f.jpg">
+        <img src="g.jpg">
+        <img src="h.jpg">
+        <img src="1000003858.jpg">
+        <img src="1000003739.jpg">
+    </div>
+    <audio id="tiktokSong" src="rock-your-body.mp3" preload="auto"></audio>
+    <div class="bottom-btn-bar">
+        <button onclick="toggleSong()" class="love-btn" style="font-size:1.2em; background:#fffbe7; color:#b85c38;">
+            ▶️ play our song
+        </button>
+        <button onclick="window.location.href='m.html';" class="love-btn">
+            I Love You button ❤️
+        </button>
+    </div>
+    <script>
+        // Floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+            heart.style.fontSize = (18 + Math.random() * 22) + 'px';
+            heart.style.opacity = 0.7 + Math.random() * 0.3;
+            heart.innerHTML = '❤️';
+            document.getElementById('hearts-bg').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 700);
+
+        // Audio toggle
+        const audio = document.getElementById('tiktokSong');
+        const playBtn = document.querySelector('.bottom-btn-bar button');
+
+        function toggleSong() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '⏸️ Pause Song';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '▶️ Play Song';
+            }
+        }
+
+        // ...more/less button toggle
+        function toggleMore(id) {
+            document.getElementById(id + '-short').style.display = 'none';
+            document.getElementById(id + '-more').style.display = 'inline';
+        }
+        function toggleLess(id) {
+            document.getElementById(id + '-more').style.display = 'none';
+            document.getElementById(id + '-short').style.display = 'inline';
+        }
+    </script>
+</head>
+
+</body>
+</html>

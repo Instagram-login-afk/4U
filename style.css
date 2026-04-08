@@ -1,0 +1,321 @@
+/* Google Fonts included in HTML <head> */
+
+body {
+    background: radial-gradient(ellipse at top left, #2d1e1b 0%, #111 100%);
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: auto;
+}
+
+/* Heart background layer */
+#hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Floating Hearts */
+.floating-heart {
+    position: absolute;
+    bottom: -40px;
+    animation: float-heart linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes float-heart {
+    0% {
+        transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60vh) translateX(30px) scale(1.2) rotate(12deg);
+        opacity: 0;
+    }
+}
+
+/* Fade-in animation for notes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cursor sparkle effect (works with JS) */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 999;
+    animation: sparkleFade 0.8s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Core content layout */
+.content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 60px;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Notes */
+.rect-note, .square-note, .dream-box {
+    background: rgba(255, 251, 231, 0.97);
+    box-shadow: 0 6px 32px #b85c3866;
+    border: 4px solid #b85c38;
+    font-family: Georgia, serif;
+    color: #333;
+    font-size: 1.15em;
+    line-height: 1.7;
+    position: relative;
+    padding: 38px 32px 32px 32px;
+    margin-bottom: 0;
+    transition: transform 0.2s ease-in-out;
+}
+
+.rect-note:hover,
+.square-note:hover,
+.dream-box:hover {
+    transform: scale(1.02);
+}
+
+.rect-note {
+    border-radius: 24px;
+    max-width: 420px;
+    min-width: 320px;
+}
+
+.square-note {
+    border-radius: 18px;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Dream box with image */
+.dream-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+    min-width: 320px;
+    max-width: 420px;
+}
+
+.dream-box img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #b85c3866;
+    border: 2px solid #fffbe7;
+}
+
+.rect-note h2, .square-note h2 {
+    font-family: 'Great Vibes', cursive;
+    color: #b85c38;
+    font-size: 2em;
+    margin: 0 0 18px 0;
+    text-align: center;
+}
+
+.rect-note .author {
+    text-align: right;
+    color: #b85c38;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.2em;
+    margin-top: 24px;
+}
+
+/* Memories gallery */
+.memories-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: center;
+    margin: 60px 0 0 0;
+    z-index: 2;
+    position: relative;
+}
+.memories-flex img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #b85c3866;
+}
+
+/* Bottom buttons */
+.bottom-btn-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 28px;
+    left: 0;
+    z-index: 100;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Buttons */
+.love-btn {
+    background: #b85c38;
+    color: #fffbe7;
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.6em;
+    padding: 12px 38px;
+    border: none;
+    border-radius: 28px;
+    box-shadow: 0 2px 12px #b85c3866;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.love-btn:hover {
+    animation: heartbeat 0.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.1); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* More/less toggle buttons */
+.more-btn, .less-btn {
+    background: #fffbe7;
+    color: #b85c38;
+    border: none;
+    border-radius: 18px;
+    font-size: 1em;
+    font-family: 'Great Vibes', cursive;
+    padding: 6px 18px;
+    margin: 18px auto 0 auto;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #b85c3866;
+    display: block;
+}
+.less-btn {
+    background: #b85c38;
+    color: #fffbe7;
+    margin-top: 8px;
+}
+
+/* Responsive layout */
+@media (max-width: 1300px) {
+    .content-row {
+        flex-direction: column;
+        width: 100%;
+    }
+    .memories-flex {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .rect-note, .square-note, .dream-box {
+        margin: 0 16px;
+    }
+}
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .content-row {
+        flex-direction: column;
+        gap: 24px;
+        padding: 0 16px;
+        align-items: center;
+    }
+
+    .rect-note, .square-note, .dream-box {
+        max-width: 95vw;
+        width: 100%;
+        padding: 28px 24px;
+        font-size: 1em;
+    }
+
+    .square-note {
+        height: auto;
+        padding: 32px 24px;
+    }
+
+    .rect-note h2, .square-note h2 {
+        font-size: 1.6em;
+    }
+
+    .love-btn {
+        font-size: 1.3em;
+        padding: 10px 24px;
+    }
+
+    .dream-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dream-box img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .memories-flex {
+        gap: 14px;
+        margin-top: 32px;
+    }
+
+    .memories-flex img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .bottom-btn-bar {
+        position: fixed;
+        bottom: 18px;
+        padding: 0 12px;
+    }
+
+    .more-btn, .less-btn {
+        font-size: 1em;
+        padding: 6px 16px;
+        margin-top: 12px;
+    }
+}
